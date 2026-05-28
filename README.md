@@ -13,6 +13,7 @@ Although the issue of hardcoded machine keys and associated exploitation has bee
 [**KnowledgeDeliver RCE** - CVE-2026-5426](https://cloud.google.com/blog/topics/threat-intelligence/knowledgedeliver-viewstate-deserialization-vulnerability/)
 
 
+
 # Setting up the vulnerable IIS Server
 First, you will need a Windows Server variant with the IIS server role enabled. 
 
@@ -21,5 +22,9 @@ After the IIS Server role is enabled, run the **Enable-IISFeatures.ps1** script 
 Then, place **web.config** and **vuln.aspx** in **C:\inetpub\wwwroot**, then run the command **iisreset** from an administrative Powershell session.
 
 At this point, you should then be able to browse to http://Local_Server_IP_here/vuln.aspx and see the basic web application in use to verify IIS/ASP.NET is set up properly.
+
+**Do not expose this server to the internet or untrusted networks**
+
+
 
 # Testing the Exploit Locally
