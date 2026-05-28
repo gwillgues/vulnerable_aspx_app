@@ -4,13 +4,13 @@ This is a repository dedicated for educational testing of IIS Web Server exploit
 
 Although the issue of hardcoded machine keys and associated exploitation has been known for years, it continues to crop up year after year, including in the following recent major campaigns:
 
-**USAHERDS RCE** - CVE-2021-44207
+[**USAHERDS RCE** - CVE-2021-44207](https://cloud.google.com/blog/topics/threat-intelligence/apt41-us-state-governments)
 
-**CentreStack RCE** - CVE-2025-30406
+[**CentreStack RCE** - CVE-2025-30406](https://www.huntress.com/blog/cve-2025-30406-critical-gladinet-centrestack-triofox-vulnerability-exploited-in-the-wild)
 
-**Sitecore RCE** - CVE-2025-53690
+[**Sitecore RCE** - CVE-2025-53690](https://cloud.google.com/blog/topics/threat-intelligence/viewstate-deserialization-zero-day-vulnerability)
 
-**KnowledgeDeliver RCE** - CVE-2026-5426
+[**KnowledgeDeliver RCE** - CVE-2026-5426](https://cloud.google.com/blog/topics/threat-intelligence/knowledgedeliver-viewstate-deserialization-vulnerability/)
 
 
 # Setting up the vulnerable IIS Server
