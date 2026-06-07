@@ -13,7 +13,6 @@ validation_key = "C551753B0325187D1759B4FB055B44F7C5077B016C02AF674E8DE69351B69F
 
 
 def get_viewstate_generator(target):
-    #pattern = 'name=\"__VIEWSTATE\" value=\"(?P<viewstate_b64>[a-zA-Z0-9+\=\_\/])\"'
     viewstate_pattern = r'id="__VIEWSTATE"\svalue="(?P<viewstate_b64>[a-zA-Z0-9+=_/]{3,128})"'
     generator_pattern = r'id="__VIEWSTATEGENERATOR"\svalue="(?P<generator_hex>[a-fA-F0-9]{8})"'
     
@@ -28,8 +27,7 @@ def get_viewstate_generator(target):
             viewstate_data = viewstate_dict['viewstate_b64']
         if generator_dict['generator_hex']:
             generator_data = generator_dict['generator_hex']
-        
-#        print(f"ViewState: {viewstate_data} , Generator: {generator_data}")
+    
 
         return viewstate_data, generator_data
 
